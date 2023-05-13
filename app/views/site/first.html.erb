@@ -1,4 +1,16 @@
 <h1>Site#first</h1>
 <p>Find me in app/views/site/first.html.erb</p>
 
-<%= link_to "Second page", second_page_path %>
+<%= turbo_frame_tag "someid" do %>
+  <!--  <%= link_to "Second page", second_page_path, data: { turbo_frame: "formid" } %> -->
+  <%= link_to "Second page", second_page_path, target: "_top" %>
+<% end %>
+
+<%= turbo_frame_tag "formid" do %>
+  <%= form_with url: third_page_path do |form| %>
+    <%= form.text_field :name %>
+    <%= form.submit "Submit" %>
+  <% end %>
+<% end %>
+
+<%= turbo_frame_tag "fourthid", src: "/fourth", loading: "lazy" %>

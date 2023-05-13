@@ -1,7 +1,11 @@
 class SiteController < ApplicationController
-  def first
+  def first; end
+
+  def second; end
+
+  def third
+    redirect_to second_page_path, notice: 'message'
   end
 
-  def second
-  end
+  def fourth; end
 end
