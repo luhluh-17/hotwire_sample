@@ -1,16 +1,50 @@
 <h1>Site#first</h1>
 <p>Find me in app/views/site/first.html.erb</p>
 
-<%= turbo_frame_tag "someid" do %>
-  <!--  <%= link_to "Second page", second_page_path, data: { turbo_frame: "formid" } %> -->
-  <%= link_to "Second page", second_page_path, target: "_top" %>
-<% end %>
+<!-- app/views/site/first.html.erb -->
+<%= turbo_stream_from "teststr" %>
 
-<%= turbo_frame_tag "formid" do %>
-  <%= form_with url: third_page_path do |form| %>
-    <%= form.text_field :name %>
-    <%= form.submit "Submit" %>
-  <% end %>
-<% end %>
+<div id="broadcasts">
 
-<%= turbo_frame_tag "fourthid", src: "/fourth", loading: "lazy" %>
+</div>
+<br />
+<hr />
+
+Total: <span class="counter"><%= @count %></span>
+
+<table width="400">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody id="people">
+    <tr>
+      <td>John</td>
+      <td>jdoe@email.com</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Emily</td>
+      <td>emily@email.com</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>Dan</td>
+      <td>dan@email.com</td>
+      <td>78</td>
+    </tr>
+  </tbody>
+</table>
+
+<%= form_with url: third_page_path, scope: "person" do |f| %>
+  <%= hidden_field_tag :count, nil, id: "hidden-counter", value: @count %>
+  <%= f.text_field :name, placeholder: "Name" %>
+  <%= f.text_field :email, placeholder: "Email" %>
+  <%= f.text_field :age, placeholder: "Age" %>
+  <%= f.submit :save %>
+<% end %>
+<hr>
+Total: <span class="counter"><%= @count %></span>

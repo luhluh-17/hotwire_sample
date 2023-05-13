@@ -1,10 +1,13 @@
 class SiteController < ApplicationController
-  def first; end
+  def first
+    @count = 3
+  end
 
   def second; end
 
   def third
-    redirect_to second_page_path, notice: 'message'
+    @name, @email, @age = params[:person].values_at(:name, :email, :age)
+    @count = params[:count].to_i + 1
   end
 
   def fourth; end
